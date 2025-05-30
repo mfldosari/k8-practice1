@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: azdockerregg-csbkfgaqhfgafvaj.azurecr.io/frontend:v10
+        ports:
+        - containerPort: 8501
+        volumeMounts:
+        - mountPath: /app/images
+          name: images-volume
+      volumes:
+      - name: images-volume
+        emptyDir: {}
